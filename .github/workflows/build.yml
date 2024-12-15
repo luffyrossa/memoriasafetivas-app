@@ -1,4 +1,4 @@
-name: Build APK with EAS
+
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
           npm install
 
       - name: Login to EAS
-        run: echo $EAS_ACCESS_TOKEN | eas login --token
+        run: echo $EAS_ACCESS_TOKEN | eas login CxEqpcDIQ2mVipN6yiE8KjJL7PObKHjXw44K-aaQ
         env:
           EAS_ACCESS_TOKEN: ${{ secrets.EAS_TOKEN }}
 
