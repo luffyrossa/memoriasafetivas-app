@@ -3,7 +3,7 @@ name: Build APK with EAS
 on:
   push:
     branches:
-      - main  # Define a branch onde o processo será acionado, você pode mudar para a branch de sua preferência.
+      - main  
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # ou outra versão de Node.js que você está usando no seu projeto
+          node-version: '16'
 
       - name: Install dependencies
         run: |
@@ -24,7 +24,7 @@ jobs:
           npm install
 
       - name: Login to EAS
-        run: eas login
+        run: echo $EAS_ACCESS_TOKEN | eas login --token
         env:
           EAS_ACCESS_TOKEN: ${{ secrets.EAS_TOKEN }}
 
