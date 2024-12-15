@@ -1,0 +1,36 @@
+name: Build APK with EAS
+
+on:
+  push:
+    branches:
+      - main  # Define a branch onde o processo será acionado, você pode mudar para a branch de sua preferência.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # ou outra versão de Node.js que você está usando no seu projeto
+
+      - name: Install dependencies
+        run: |
+          npm install -g eas-cli
+          npm install
+
+      - name: Login to EAS
+        run: eas login --token ${{ secrets.EAS_TOKEN }}
+
+      - name: Build APK with EAS
+        run: eas build --platform android
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-apk
+          path: ./build/*.apk 
